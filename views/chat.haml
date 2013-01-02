@@ -1,0 +1,12 @@
+%pre#chat
+%form
+	%input#msg{:placeholder => 'type message here...'}
+
+:javascript
+	var es = new EventSource('/stream');
+	es.onmessage = function(e) { $('#chat').append(e.data + "\n") };
+	$("form").live("submit", function(e) {
+	$.post('/', {msg: "<%= user %>: " + $('#msg').val()});
+	$('#msg').val(''); $('#msg').focus();
+	e.preventDefault();
+		});

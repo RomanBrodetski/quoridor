@@ -1,13 +1,11 @@
 .row-fluid
-	%form#register
-		%fieldset
-			%input#name{:placeholder => 'type your name...'}
-.row-fluid.waiting.hide
 	.span8
+		%b.with
+		%canvas#canvas{:width => 800, :height => 800}
 	.span4
-		.well
+		%form#register
+			%fieldset
+				%input#name{:placeholder => 'type your name...'}
+	.span4
+		.well.waiting
 			Waiting for another player...
-.row-fluid.board.hide 
-	%b.with
-	%canvas
-

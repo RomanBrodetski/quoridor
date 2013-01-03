@@ -6,6 +6,6 @@ $(function(e) {
 	imageObj.onload = function() {
 		context.drawImage(imageObj, 69, 50);
 	};
-	imageObj.src = '/images/board.jpg';
+	imageObj.src = '/images/board.png';
 
 })

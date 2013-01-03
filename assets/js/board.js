@@ -5,11 +5,7 @@ Board = (function(e) {
 	var EDGE = 55
 	var white;
 	var black;
-
-	imageObj.onload = function() {
-		context.drawImage(imageObj, 69, 50);
-	};
-	imageObj.src = '/images/board.png';
+	
 	function col(p) {
 		return p.charCodeAt(0) - 'a'.charCodeAt(0) + 1
 	}
@@ -19,13 +15,13 @@ Board = (function(e) {
 	}
 
 	function pawn(pawn, target) {
-
+		
 	}
 
 	function wall(p) {
 		c.lineWidth = 6;
 		c.beginPath();
-		left = LEFT + col(p) * EDGE
+		left = LEFT + col (p) * EDGE
 		top_ = TOP + row(p) * EDGE
 		if(p[2] == 'h') {
 			left -= EDGE

@@ -12,17 +12,27 @@
 		es.addEventListener('state', function(e) {
 			switch(e.data) {
 			case "start":
-				$('.board').show()
 				$('.waiting').hide()
 			}
-
 		}, false);
 
-		es.addEventListener('meta', function(e) {
+		es.addEventListener('your_turn', function(e) {
+			if(e.data == 0) {
+				$('.turn').hide()
+			} else {
+				$('.turn').show()
+			}
+		}, false);
+
+		es.addEventListener('playernames', function(e) {
 			obj = JSON.parse(e.data)
 			$('.with').html(obj.join(', '))
 		}, false);
+
 		$('.waiting').show()
 		$('#register').hide()
 		e.preventDefault();
 	});
+	$(function() {
+		Board.setup()
+	})

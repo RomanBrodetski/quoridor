@@ -1,14 +1,17 @@
 require './q_response'
 class Game
-  include QResponse
 
   def initialize players
     @players = players
   end
 
   def start
-    @players.each {|con| con[:connection] << out(:state, :start)}
-    @players.each {|con| con[:connection] << out(:meta,  @players.map {|p| p[:name]})}
+  	puts @players[0][:connection].class
+    @players.each {|con| con[:connection].put(:state, :start)}
+    @players.each {|con| con[:connection].put(:playernames,  @players.map {|p| p[:name]})}
+    @players[0][:connection].put(:color, :white)
+    @players[1][:connection].put(:color, :black)
+    @players[0][:connection].put(:your_turn, 1)
   end
 
 

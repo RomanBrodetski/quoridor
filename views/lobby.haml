@@ -1,5 +1,8 @@
 .row-fluid
-	.span8
+	.span12
+		bla-bla header
+.row-fluid
+	.span6
 		.row-fluid
 			%b.with
 		.row-fluid
@@ -7,10 +10,13 @@
 				Your turn
 		%embed{:src => "images/board.svg", :type => "image/svg+xml"}
 		-# %canvas#canvas{:width => 800, :height => 800}
-	.span4
+	.span6
 		%form#register
 			%fieldset
 				%input#name{:placeholder => 'type your name...'}
-	.span4
-		.well.waiting.hide
-			Waiting for another player...
+		.row-fluid
+			.well.waiting.hide
+				Waiting for another player...
+.row-fluid
+	.span12
+		bla-bla footer

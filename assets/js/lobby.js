@@ -1,12 +1,18 @@
 	$("#register").live("submit", function(e) {
 		// alert('s')
-		var es = new EventSource('/stream?name=' + $('#name').val());
+		window.cl_id = new Date().getTime()
+		var es = new EventSource('/stream?name=' + $('#name').val() + "&id=" + cl_id);
 		es.onmessage = function(e) {
 			response = JSON.parse(e.data)
 		};
 		es.addEventListener('message', function(e) {
 			var data = JSON.parse(e.data);
-			alert(data)
+			// alert(data)
+
+		}, false);
+
+		es.addEventListener('move', function(e) {
+			Board.move(e.data)
 		}, false);
 
 		es.addEventListener('state', function(e) {
@@ -19,8 +25,10 @@
 		es.addEventListener('your_turn', function(e) {
 			if(e.data == 0) {
 				$('.turn').hide()
+				Board.your_turn(false)
 			} else {
 				$('.turn').show()
+				Board.your_turn(true)
 			}
 		}, false);
 

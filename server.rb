@@ -1,30 +1,37 @@
 require './game'
+require './connections_manager'
 require 'json'
 class Quoridor < Sinatra::Base
-  set server: 'thin', connections: [], port: 6666
+  set server: 'thin', port: 6666
+  set :sessions, true
   set :public_folder, File.dirname(__FILE__) + "/assets"
-  set :player_count, 2
-  set queue: []
+
+  set :connections, ConnectionsManager.new
 
   get '/' do
     haml :lobby
   end
 
   get '/stream', provides: 'text/event-stream' do
-    puts "connection from #{params[:name]} accepted"
+    puts "connection from #{params[:name]} accepted: #{params[:id]}"
+    session[:user_id] = params[:id]
     stream :keep_open do |out|
-      settings.connections << {:connection => out, :name => params[:name]}
-      out.callback { settings.connections.delete(out) }
-
-      if settings.connections.length >= settings.player_count
-        @game = Game.new settings.connections.shift(settings.player_count)
-        @game.start
-      end
-
+      # puts session[:user_id]
+      settings.connections << {:connection => out, :name => params[:name], :id => params[:id]}
+      # out.callback { settings.connections.delete(out) }
     end
   end
 
+  post '/move' do
+    puts '/move'
+    puts params[:wall]
+    id = params[:id]
+    puts id
+    settings.connections.games[id].move(id, params[:wall])
+    203
+    # puts session[:user_id]
+    # puts session[:game]
+    # puts settings.games.select {|game| game.con[:id] == session[:user_id]}.inspect
 
-
-
+  end
 end

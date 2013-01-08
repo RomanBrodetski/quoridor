@@ -1,0 +1,23 @@
+.header {
+	margin-bottom: 50px;
+	border-bottom: 1px solid #eee;
+
+	color: #aaa;
+}
+
+.container {
+
+}
+
+.board {
+	text-align: center;
+}
+
+.footer {
+	margin-top: 50px;
+	border-top: 1px solid #eee;
+	padding: 30px 0 30px;
+
+	text-align: center;
+	color: #aaa;
+}

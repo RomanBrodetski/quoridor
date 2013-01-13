@@ -8,7 +8,6 @@
 		es.addEventListener('message', function(e) {
 			var data = JSON.parse(e.data);
 			// alert(data)
-
 		}, false);
 
 		es.addEventListener('move', function(e) {
@@ -32,6 +31,10 @@
 			}
 		}, false);
 
+		es.addEventListener('pawn_moves', function(e) {
+			Board.set_legal_pawn_moves(e.data)
+		}, false);
+		
 		es.addEventListener('playernames', function(e) {
 			obj = JSON.parse(e.data)
 			$('.with').html(obj.join(', '))

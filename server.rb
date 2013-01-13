@@ -24,10 +24,10 @@ class Quoridor < Sinatra::Base
 
   post '/move' do
     puts '/move'
-    puts params[:wall]
+    puts params[:move]
     id = params[:id]
     puts id
-    settings.connections.games[id].move(id, params[:wall])
+    settings.connections.games[id].move(id, params[:move])
     203
     # puts session[:user_id]
     # puts session[:game]

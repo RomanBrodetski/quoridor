@@ -4,12 +4,10 @@ class ConnectionsManager
 
   def initialize
     @cons = []
-    puts "init #{@cons}"
     @games = {}
   end
 
   def << connection
-    # puts @cons
     @cons << connection
     arrange_games
     self
@@ -18,7 +16,7 @@ class ConnectionsManager
   def arrange_games
     if @cons.length >= PLAYER_COUNT
       connections =  @cons.shift(PLAYER_COUNT)
-      game = Game.new connections
+      game = Game.new connections.map{|con| NetworkPlayer.new con}
       # connections.each {|con| con[:session][:game] = @game}
       # puts connections.map {|q| q[:session][:game].to_yaml}
       game.start

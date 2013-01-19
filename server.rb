@@ -1,6 +1,14 @@
-require './game'
+# require './game'
 require './connections_manager'
 require 'json'
+
+Dir["./lib/*"].each do |file|
+  require file
+  end
+# require './lib/board'
+# require './lib/move'
+# require './lib/impossible_move'
+
 class Quoridor < Sinatra::Base
   set server: 'thin', port: 6666
   set :sessions, true

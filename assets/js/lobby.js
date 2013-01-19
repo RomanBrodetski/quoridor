@@ -1,4 +1,4 @@
-	$("#register").live("submit", function(e) {
+	$(document).on("submit", "#register", function(e) {
 		// alert('s')
 		window.cl_id = new Date().getTime()
 		var es = new EventSource('/stream?name=' + $('#name').val() + "&id=" + cl_id);
@@ -34,7 +34,7 @@
 		es.addEventListener('pawn_moves', function(e) {
 			Board.set_legal_pawn_moves(e.data)
 		}, false);
-		
+
 		es.addEventListener('playernames', function(e) {
 			obj = JSON.parse(e.data)
 			$('.with').html(obj.join(', '))

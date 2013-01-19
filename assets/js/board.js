@@ -120,7 +120,7 @@ Board = (function(e) {
 				stop: function(event, ui) {
 					wall = event.target
 					x = ui.position.left - LEFT_MAR
-					y = ui.position.top - TOP_MAR
+					y = ui.position.top - TOP_MAR - window.pageYOffset
 					v = true
 					if(in_field(x, y)) {
 						v = Math.abs((x - LEFT_PAD) % EDGE - EDGE / 2) > Math.abs((y - TOP_PAD) % EDGE - EDGE / 2)
@@ -142,7 +142,7 @@ Board = (function(e) {
 				drag: function(event, ui) {
 					wall = event.target
 					x = ui.position.left - LEFT_MAR
-					y = ui.position.top - TOP_MAR
+					y = ui.position.top - TOP_MAR - window.pageYOffset
 					v = true
 					if(in_field(x, y)) {
 						v = Math.abs((x - LEFT_PAD) % EDGE - EDGE / 2) > Math.abs((y - TOP_PAD) % EDGE - EDGE / 2)
@@ -193,7 +193,7 @@ Board = (function(e) {
 				stop: function(event, ui) {
 					pawn = event.target
 					x = ui.position.left - LEFT_MAR
-					y = ui.position.top - TOP_MAR
+					y = ui.position.top - TOP_MAR - window.pageYOffset
 					col = Math.ceil((x) / EDGE)
 					row = Math.ceil((y - TOP_PAD) / EDGE)
 					// console.log("col: " + col + " row: " + row)
@@ -211,7 +211,7 @@ Board = (function(e) {
 				drag: function(event, ui) {
 					pawn = event.target
 					x = ui.position.left - LEFT_MAR
-					y = ui.position.top - TOP_MAR
+					y = ui.position.top - TOP_MAR - window.pageYOffset
 					col = Math.ceil((x) / EDGE)
 					row = Math.ceil((y - TOP_PAD) / EDGE)
 					// console.log("col: " + col + " row: " + row)
@@ -240,8 +240,10 @@ Board = (function(e) {
 					onLoad: function(svg) {
 						window.svg = svg
 						svg.image(0, 0, 410, 600, 'images/board.svg');
-						LEFT_MAR = $('#svg').position().left
-						TOP_MAR = $('#svg').position().top
+						LEFT_MAR = $('#svg').offset().left
+						TOP_MAR = $('#svg').offset().top
+						// LEFT_MAR = 0
+						// TOP_MAR = 0
 						init_walls()
 						init_pawns()
 						init_drag()

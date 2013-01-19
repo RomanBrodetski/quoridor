@@ -4,10 +4,7 @@ require 'json'
 
 Dir["./lib/*"].each do |file|
   require file
-  end
-# require './lib/board'
-# require './lib/move'
-# require './lib/impossible_move'
+end
 
 class Quoridor < Sinatra::Base
   set server: 'thin', port: 6666
@@ -30,6 +27,7 @@ class Quoridor < Sinatra::Base
     end
   end
 
+
   post '/move' do
     puts '/move'
     puts params[:move]
@@ -40,6 +38,5 @@ class Quoridor < Sinatra::Base
     # puts session[:user_id]
     # puts session[:game]
     # puts settings.games.select {|game| game.con[:id] == session[:user_id]}.inspect
-
   end
 end

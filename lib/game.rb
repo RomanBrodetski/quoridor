@@ -1,5 +1,4 @@
 
-require './pawn'
 class Game
   PLAYER_COUNT = 2
 

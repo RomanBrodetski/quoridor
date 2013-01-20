@@ -9,6 +9,12 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+require_relative '../lib/sinatra/server'
+
+Dir["../lib/*"].each do |file|
+  require_relative file
+end
+
 module Quoridor
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

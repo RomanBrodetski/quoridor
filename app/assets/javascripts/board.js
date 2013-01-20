@@ -257,7 +257,7 @@ Board = (function(e) {
 			}
 		var set_legal_pawn_moves = function(moves) {
 				legal_pawn_moves = JSON.parse(moves)
-				console.log(moves)
+				// console.log(moves)
 			}
 
 		return {

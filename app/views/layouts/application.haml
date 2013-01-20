@@ -9,5 +9,14 @@
   = javascript_include_tag 'application'
   = stylesheet_link_tag 'application'
   %body
+    = render "shared/login_panel"
     .container-fluid
+      -if notice
+        %p.alert-success.alert
+          =notice
+      -if alert
+        %p.alert-failure.alert
+          =alert
       =yield
+/ :javascript
+/   window.logged_user =

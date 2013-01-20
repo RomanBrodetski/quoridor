@@ -1,5 +1,7 @@
 Quoridor::Application.routes.draw do
+  devise_for :users
+
   match "/streaming" => SinatraQuoridor, :anchor => false
-  match "/" => "home#index"
+  root :to => "home#index"
 
 end

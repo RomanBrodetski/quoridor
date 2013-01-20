@@ -15,8 +15,14 @@ Dir["../lib/*"].each do |file|
   require_relative file
 end
 
+BacktraceShortener.monkey_patch_the_exception_class!
+BacktraceShortener.filters.unshift(Proc.new do |backtrace|
+  backtrace.reject { |line| line.include?(Gem.dir) }
+end)
+
 module Quoridor
   class Application < Rails::Application
+    config.middleware.use SinatraQuoridor
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

@@ -4,19 +4,17 @@ require_relative 'connections_manager'
 require_relative 'network_player'
 
 class SinatraQuoridor < Sinatra::Base
-  set server: 'thin', port: 6666
   set :sessions, true
-  set :public_folder, File.dirname(__FILE__) + "/assets"
 
   set :connections, ConnectionsManager.new
 
-
-  get '/stream', provides: 'text/event-stream' do
+  get '/random', provides: 'text/event-stream' do
     puts "connection from #{params[:name]} accepted: #{params[:id]}"
-    session[:user_id] = params[:id]
+    puts User.find_by_id(session["warden.user.user.key"][1]).email
+    # session[:user_id] = params[:id]s
     stream :keep_open do |out|
       # puts session[:user_id]
-      settings.connections << {:connection => out, :name => params[:name], :id => params[:id]}
+      # settings.connections << {:connection => out, :name => params[:name], :id => params[:id]}
       # out.callback { settings.connections.delete(out) }
     end
   end

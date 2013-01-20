@@ -4,12 +4,12 @@ source 'https://rubygems.org'
 gem "sinatra", :require => "sinatra/base"
 gem 'haml'
 gem "thin", "1.2.11"
-
 gem 'rails', '3.2.9'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+gem "backtrace_shortener"
 gem 'sqlite3'
 
 gem 'devise'

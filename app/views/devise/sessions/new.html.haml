@@ -1,0 +1,16 @@
+= form_for(resource, :class => 'form-horizontal', :as => resource_name, :url => session_path(resource_name)) do |f|
+  .control-group
+    %label.control-label{:for => "email"} Email
+    .controls
+      = f.email_field :email, :autofocus => true, :placeholder => "Email"
+  .control-group
+    %label.control-label{:for => "inputPassword"} Password
+    .controls
+      = f.password_field :password, :placeholder => "Password"
+  - if devise_mapping.rememberable?
+    .control-group
+      .controls
+        %label.checkbox
+          = f.check_box :remember_me
+          Remember me
+        = f.submit "Sign in", :class => 'btn'

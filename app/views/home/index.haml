@@ -1,7 +1,7 @@
-.row-fluid.header
-  %h1
-    Quoridor
-.row-fluid.container
+/ .row-fluid.header
+/   %h1
+/     Quoridor
+.row-fluid
   .span8.board
     .row-fluid
       %b.with
@@ -11,14 +11,11 @@
     #svg.board-size
     -# %embed{:src => "images/board.svg", :type => "image/svg+xml"}
     -# %canvas#canvas{:width => 800, :height => 800}
-  .span4
-    %h4
-      поле для ввода своего имени
-    %form#register
-      %fieldset
-        %input#name{:placeholder => 'type your name...'}
-    .row-fluid
-      .well.waiting.hide
-        Waiting for another player...
+  .span3.offset1
+    %ul.nav.nav-tabs.nav-stacked
+      %li
+        =link_to "Random opponent", '#', :id => 'play_random'
+      %li
+        =link_to "Play with friend", '#', :id => 'play_with_friend'
 .row-fluid.footer
   bla-bla footer

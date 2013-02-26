@@ -8,6 +8,12 @@ class ConnectionsManager
   end
 
   def << connection
+    # puts 'adding connection'
+    # con =  @cons.select {|con| con[:user].id == connection[:user].id}[0]
+    # con = @cons << connection
+    # unless
+    #     @cons
+    # puts "<< called: #{connection}"
     @cons << connection
     arrange_games
     self
@@ -17,10 +23,8 @@ class ConnectionsManager
     if @cons.length >= PLAYER_COUNT
       connections =  @cons.shift(PLAYER_COUNT)
       game = Game.new connections.map{|con| NetworkPlayer.new con}
-      # connections.each {|con| con[:session][:game] = @game}
-      # puts connections.map {|q| q[:session][:game].to_yaml}
       game.start
-      connections.each {|con| @games[con[:id]] = game}
+      connections.each {|con| @games[con[:user].id] = game}
     end
   end
 

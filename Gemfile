@@ -2,7 +2,9 @@ source 'https://rubygems.org'
 
 
 gem "sinatra", :require => "sinatra/base"
+gem "sinatra-contrib"
 gem 'haml'
+gem 'eventmachine'
 gem "thin", "1.2.11"
 gem 'rails', '3.2.9'
 

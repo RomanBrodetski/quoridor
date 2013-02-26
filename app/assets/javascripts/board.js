@@ -42,8 +42,7 @@ Board = (function(e) {
 			type: "POST",
 			async: false,
 			data: {
-				move: move,
-				id: cl_id
+				move: move
 			},
 			success: function(result) {
 				// alert(result)
@@ -67,8 +66,7 @@ Board = (function(e) {
 			type: "POST",
 			async: false,
 			data: {
-				move: move,
-				id: cl_id
+				move: move
 			},
 			success: function(result) {
 				// walls.push(move)
@@ -236,6 +234,7 @@ Board = (function(e) {
 
 
 		var setup = function() {
+				$('.game').show()
 				$('#svg').svg({
 					onLoad: function(svg) {
 						window.svg = svg
@@ -252,6 +251,11 @@ Board = (function(e) {
 				});
 			}
 
+
+		var destroy = function() {
+				$('.game').hide()
+			}
+
 		var your_turn = function(move) {
 				$('.draggable').draggable(move ? 'enable' : 'disable')
 			}
@@ -262,6 +266,7 @@ Board = (function(e) {
 
 		return {
 			setup: setup,
+			destroy: destroy,
 			your_turn: your_turn,
 			move: reflect_move,
 			set_legal_pawn_moves: set_legal_pawn_moves

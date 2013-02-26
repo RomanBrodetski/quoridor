@@ -3,13 +3,13 @@ class Game
   PLAYER_COUNT = 2
 
   def initialize players
-    @players = players.inject({}) {|hash, p| hash[p.id] = p ; hash}
+    @players = players.inject({}) {|hash, p| hash[p.user.id] = p ; hash}
     @board = Board.new
   end
 
   def start
-    @players.values[0].notify_start 0, @players.values.map(&:name)
-    @players.values[1].notify_start 1, @players.values.map(&:name)
+    @players.values[0].notify_start 0, @players.values.map(&:user)
+    @players.values[1].notify_start 1, @players.values.map(&:user)
 
     @players.values[0].notify_possible_pawn_moves(@board.possible_pawn_moves(0))
     @players.values[1].notify_possible_pawn_moves(@board.possible_pawn_moves(1))
@@ -25,7 +25,7 @@ class Game
     move = @players[player_id].process_his_move(move)
     if @board.move(@current_player_num, move) == :win
       current_player.notify_win
-      @players.values[next_player_num].notify_loss
+      @players.values[next_player_num].notify_defeat
     end
     advance_move
     current_player.notify_move(move)

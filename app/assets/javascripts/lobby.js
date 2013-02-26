@@ -4,12 +4,12 @@
 
 		es.onmessage = function(e) {
 			response = JSON.parse(e.data)
-			console.log('inexpected message:')
+			console.log('unexpected message:')
 			console.log(e.data)
 		};
 		es.addEventListener('message', function(e) {
 			var data = JSON.parse(e.data);
-			console.log('inexpected message:')
+			console.log('unexpected message:')
 			console.log(e.data)
 		}, false);
 
@@ -20,12 +20,20 @@
 		}, false);
 
 		es.addEventListener('state', function(e) {
-			console.log('state:')
-			console.log(e.data)
+			console.log('state:' + e.data)
 			switch(e.data) {
 			case "start":
 				Board.setup()
 				$('.waiting').hide()
+				break;
+			case "win":
+				Board.destroy()
+				alert('you won!')
+				break;
+			case "defeat":
+				Board.destroy()
+				alert('you lost!')
+				break;
 			}
 		}, false);
 
@@ -51,12 +59,11 @@
 			console.log('playernames:')
 			console.log(e.data)
 			obj = JSON.parse(e.data)
-			$('.with').html(obj.join(', '))
+			$('.first-player').attr('href', '/users/' + obj[0][0])
+			$('.second-player').attr('href', '/users/' + obj[1][0])
 		}, false);
 
-		$('.waiting').show()
-		$('#register').hide()
+		$('.waiting').show();
 		e.preventDefault();
 	});
-	$(function() {
-	})
+	$(function() {})

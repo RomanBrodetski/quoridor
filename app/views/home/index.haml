@@ -3,12 +3,19 @@
 /     Quoridor
 .row-fluid
   .span8.board
-    .row-fluid
-      %b.with
-    .row-fluid
-      %b.turn.hide
-        Your turn
-    #svg.board-size
+    .row-fluid.waiting.hide
+      %h3
+        Waiting for another player...
+      = image_tag "ajax-loader.gif"
+      / .progress.progress-striped.active
+      /   .bar{:style => "width: 100%;"}
+    .game.hide
+      .row-fluid
+        .hero-unit
+          %a.first-player
+          vs
+          %a.second-player
+      #svg.board-size
     -# %embed{:src => "images/board.svg", :type => "image/svg+xml"}
     -# %canvas#canvas{:width => 800, :height => 800}
   .span3.offset1

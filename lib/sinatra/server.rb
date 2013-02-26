@@ -4,28 +4,31 @@ require_relative 'connections_manager'
 require_relative 'network_player'
 
 class SinatraQuoridor < Sinatra::Base
+  # register Sinatra::Namespace
   set :sessions, true
-
   set :connections, ConnectionsManager.new
 
-  get '/random', provides: 'text/event-stream' do
-    puts "connection from #{params[:name]} accepted: #{params[:id]}"
-    puts User.find_by_id(session["warden.user.user.key"][1]).email
-    # session[:user_id] = params[:id]s
-    stream :keep_open do |out|
-      # puts session[:user_id]
-      # settings.connections << {:connection => out, :name => params[:name], :id => params[:id]}
-      # out.callback { settings.connections.delete(out) }
-    end
+  before do
+    # puts "--->" + request.path_info
+    break unless request.path_info.starts_with? '/random'
+    # puts "Sinatra before filter!"
+    @user = User.find_by_id (session["warden.user.user.key"][1])
   end
 
 
+  get '/random', provides: 'text/event-stream' do
+    # puts ">---" + request.path_info
+    # puts "connection from #{params[:name]} accepted: #{params[:id]}"
+    # session[:user_id] = params[:id]s
+    stream :keep_open do |out|
+      EventMachine::PeriodicTimer.new(20) { out << "ping: \n\n" } #prevent browsers from disconnection
+      settings.connections << {:connection => out, :user => @user}
+      out.callback { puts 'for what?' }
+    end
+  end
+
   post '/move' do
-    puts '/move'
-    puts params[:move]
-    id = params[:id]
-    puts id
-    settings.connections.games[id].move(id, params[:move])
+    settings.connections.games[@user.id].move(@user.id, params[:move])
     203
     # puts session[:user_id]
     # puts session[:game]

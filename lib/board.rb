@@ -12,7 +12,8 @@ class Board
     else #pawn
       @pawns[player_index] = move
     end
-    return :success unless move.row == (player_index == 0 ? 9 : 1)
+    puts move.row
+    return :success unless move.row == (player_index == 0 ? 1 : 9)
     return :win
   end
 

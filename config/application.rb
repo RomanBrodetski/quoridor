@@ -11,8 +11,9 @@ end
 
 require_relative '../lib/sinatra/server'
 
-Dir["../lib/*"].each do |file|
-  require_relative file
+puts Dir.getwd #todo
+Dir["lib/*"].each do |file|
+  require_relative "../#{file}" unless File.directory?(file)
 end
 
 BacktraceShortener.monkey_patch_the_exception_class!
@@ -22,6 +23,7 @@ end)
 
 module Quoridor
   class Application < Rails::Application
+    # config.autoload_paths += Dir["#{config.root}/lib/**/"]
     config.middleware.use SinatraQuoridor
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

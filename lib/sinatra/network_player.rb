@@ -1,22 +1,22 @@
 require_relative 'q_response'
 
 class NetworkPlayer
-  attr_reader :name, :id
+  attr_reader :user
 
   def initialize options
       @c = options[:connection]
-      @name = options[:name]
-      @id = options[:id]
+      @user = options[:user]
+      puts "NetworkPlayer initialized: #{@user.email}"
   end
 
   def process_his_move move
      @player_number == 1 ? move.transpose : move
   end
 
-  def notify_start player_number, player_names
+  def notify_start player_number, players
      @player_number = player_number
      @c.put(:state, :start)
-     @c.put(:playernames, player_names)
+     @c.put(:playernames, players.map {|player| [player._id, player.name]})
   end
 
   def notify_your_turn val #0|1
@@ -32,9 +32,12 @@ class NetworkPlayer
   end
 
   def notify_win
+    puts 'win'
+    @c.put(:state, :win)
   end
 
-  def notify_loss
+  def notify_defeat
+    @c.put(:state, :defeat)
   end
 
   private
